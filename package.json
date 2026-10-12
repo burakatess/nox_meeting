@@ -1,0 +1,21 @@
+{
+  "name": "nox",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Nox — air-gapped enterprise communication platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "infra:up": "docker compose -f docker-compose.dev.yml up -d",
+    "infra:down": "docker compose -f docker-compose.dev.yml down",
+    "dev:server": "npm run start:dev -w @nox/server",
+    "dev:desktop": "npm run dev -w @nox/desktop",
+    "build": "npm run build -w @nox/server && npm run build -w @nox/desktop",
+    "typecheck": "npm run typecheck -w @nox/server && npm run typecheck -w @nox/desktop",
+    "test": "npm run test -w @nox/server"
+  }
+}

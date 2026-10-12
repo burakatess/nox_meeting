@@ -1,0 +1,21 @@
+# Yalnızca GELİŞTİRME içindir. Üretim dağıtımı Kubernetes + Patroni (bkz. PROJECT_SPEC.md §8).
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nox
+      POSTGRES_PASSWORD: nox
+      POSTGRES_DB: nox
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - nox_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nox -d nox"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  nox_pg:
